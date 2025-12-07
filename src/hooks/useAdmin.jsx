@@ -9,7 +9,7 @@ const useAdmin = () => {
         queryKey: ['isAdmin', user?.email],
         enabled: !loading && !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/users/admin/${user?.email}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/admin/${user?.email}`, { withCredentials: true });
             return res.data.admin;
         }
     })

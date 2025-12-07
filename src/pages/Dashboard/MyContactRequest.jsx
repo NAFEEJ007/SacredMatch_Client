@@ -12,7 +12,7 @@ const MyContactRequest = () => {
         queryKey: ['contactRequests', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/contact-requests?email=${user?.email}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/contact-requests?email=${user?.email}`, { withCredentials: true });
             return res.data;
         }
     });
@@ -28,7 +28,7 @@ const MyContactRequest = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/contact-requests/${id}`, { withCredentials: true })
+                axios.delete(`${import.meta.env.VITE_API_URL}/contact-requests/${id}`, { withCredentials: true })
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             refetch();

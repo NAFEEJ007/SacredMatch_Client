@@ -16,7 +16,7 @@ const CheckoutForm = ({ biodataId, type }) => {
     const price = isPremiumRequest ? 100 : 5;
 
     useEffect(() => {
-        axios.post('http://localhost:5000/create-payment-intent', { price }, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/create-payment-intent`, { price }, { withCredentials: true })
             .then(res => {
                 setClientSecret(res.data.clientSecret);
             })
@@ -85,7 +85,7 @@ const CheckoutForm = ({ biodataId, type }) => {
         if (paymentIntent.status === 'succeeded') {
             try {
                 if (isPremiumRequest) {
-                    const res = await axios.post('http://localhost:5000/premium-requests', { 
+                    const res = await axios.post(`${import.meta.env.VITE_API_URL}/premium-requests`, { 
                         biodataId: parseInt(biodataId),
                         transactionId: paymentIntent.id,
                         amount: price
@@ -102,7 +102,7 @@ const CheckoutForm = ({ biodataId, type }) => {
                         navigate('/dashboard/view-biodata');
                     }
                 } else {
-                    const biodataRes = await axios.get(`http://localhost:5000/biodatas/${biodataId}`, { withCredentials: true });
+                    const biodataRes = await axios.get(`${import.meta.env.VITE_API_URL}/biodatas/${biodataId}`, { withCredentials: true });
                     const biodata = biodataRes.data;
 
                     const paymentInfo = {
@@ -117,7 +117,7 @@ const CheckoutForm = ({ biodataId, type }) => {
                         status: 'pending'
                     }
 
-                    const res = await axios.post('http://localhost:5000/contact-requests', paymentInfo, { withCredentials: true });
+                    const res = await axios.post(`${import.meta.env.VITE_API_URL}/contact-requests`, paymentInfo, { withCredentials: true });
                     console.log('payment saved', res.data);
                     if (res.data.insertedId) {
                         Swal.fire({

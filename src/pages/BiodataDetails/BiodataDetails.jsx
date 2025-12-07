@@ -13,7 +13,7 @@ const BiodataDetails = () => {
         const viewedBiodatas = JSON.parse(localStorage.getItem('viewedBiodatas')) || [];
         
         if (!viewedBiodatas.includes(biodata._id)) {
-            axios.patch(`http://localhost:5000/biodatas/view/${biodata._id}`);
+            axios.patch(`${import.meta.env.VITE_API_URL}/biodatas/view/${biodata._id}`);
             viewedBiodatas.push(biodata._id);
             localStorage.setItem('viewedBiodatas', JSON.stringify(viewedBiodatas));
         }
@@ -24,7 +24,7 @@ const BiodataDetails = () => {
         queryKey: ['isPremium', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/users/premium/${user?.email}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/premium/${user?.email}`, { withCredentials: true });
             return res.data.premium;
         }
     });
@@ -33,7 +33,7 @@ const BiodataDetails = () => {
     const { data: similarBiodatas } = useQuery({
         queryKey: ['similarBiodatas', biodata.biodataType],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/biodatas?type=${biodata.biodataType}&limit=3`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/biodatas?type=${biodata.biodataType}&limit=3`);
             return res.data.result.filter(b => b._id !== biodata._id);
         }
     });
@@ -43,7 +43,7 @@ const BiodataDetails = () => {
         queryKey: ['contactRequests', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/contact-requests?email=${user?.email}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/contact-requests?email=${user?.email}`, { withCredentials: true });
             return res.data;
         }
     });
@@ -77,7 +77,7 @@ const BiodataDetails = () => {
             email: user.email
         }
         
-        axios.post('http://localhost:5000/favourites', favouriteData, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/favourites`, favouriteData, { withCredentials: true })
             .then(res => {
                 if(res.data.insertedId){
                     Swal.fire({

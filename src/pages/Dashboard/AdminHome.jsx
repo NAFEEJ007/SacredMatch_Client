@@ -19,7 +19,7 @@ const AdminHome = () => {
     const { data: stats = {} } = useQuery({
         queryKey: ['admin-stats'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/admin-stats', { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/admin-stats`, { withCredentials: true });
             return res.data;
         }
     });

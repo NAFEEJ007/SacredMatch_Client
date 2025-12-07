@@ -11,14 +11,14 @@ const SuccessStory = () => {
     const { data: stories = [], isLoading } = useQuery({
         queryKey: ['success-stories'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/success-stories');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/success-stories`);
             return res.data;
         }
     });
 
     const mutation = useMutation({
         mutationFn: async (newStory) => {
-            const res = await axios.post('http://localhost:5000/success-stories', newStory, { withCredentials: true });
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/success-stories`, newStory, { withCredentials: true });
             return res.data;
         },
         onSuccess: () => {

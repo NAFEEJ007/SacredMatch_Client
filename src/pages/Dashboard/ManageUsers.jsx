@@ -10,7 +10,7 @@ const ManageUsers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users', search],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/users?search=${search}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/users?search=${search}`, { withCredentials: true });
             return res.data;
         }
     });
@@ -26,7 +26,7 @@ const ManageUsers = () => {
             confirmButtonText: 'Yes, Make Admin!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/users/admin/${user._id}`, {}, { withCredentials: true })
+                axios.patch(`${import.meta.env.VITE_API_URL}/users/admin/${user._id}`, {}, { withCredentials: true })
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
                             refetch();
@@ -52,7 +52,7 @@ const ManageUsers = () => {
             confirmButtonText: 'Yes, Make Premium!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/users/premium/${user._id}`, {}, { withCredentials: true })
+                axios.patch(`${import.meta.env.VITE_API_URL}/users/premium/${user._id}`, {}, { withCredentials: true })
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
                             refetch();

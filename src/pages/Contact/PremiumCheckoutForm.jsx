@@ -14,7 +14,7 @@ const PremiumCheckoutForm = () => {
 
     useEffect(() => {
         if (price > 0) {
-            axios.post('http://localhost:5000/create-payment-intent', { price }, { withCredentials: true })
+            axios.post(`${import.meta.env.VITE_API_URL}/create-payment-intent`, { price }, { withCredentials: true })
                 .then(res => {
                     setClientSecret(res.data.clientSecret);
                 })
@@ -82,7 +82,7 @@ const PremiumCheckoutForm = () => {
         if (paymentIntent.status === 'succeeded') {
             try {
                 // Send request to backend to make user premium pending
-                const res = await axios.patch(`http://localhost:5000/users/premium-request/${user.email}`, {}, { withCredentials: true });
+                const res = await axios.patch(`${import.meta.env.VITE_API_URL}/users/premium-request/${user.email}`, {}, { withCredentials: true });
                 
                 if (res.data.modifiedCount > 0) {
                     Swal.fire({

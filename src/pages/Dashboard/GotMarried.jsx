@@ -20,7 +20,7 @@ const GotMarried = () => {
             userName: user?.displayName
         }
 
-        axios.post('http://localhost:5000/success-stories', storyData, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/success-stories`, storyData, { withCredentials: true })
             .then(res => {
                 if (res.data.insertedId) {
                     reset();

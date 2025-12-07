@@ -12,7 +12,7 @@ const MyFavourites = () => {
         queryKey: ['favourites', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/favourites?email=${user?.email}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/favourites?email=${user?.email}`, { withCredentials: true });
             return res.data;
         }
     });
@@ -28,7 +28,7 @@ const MyFavourites = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/favourites/${id}`, { withCredentials: true })
+                axios.delete(`${import.meta.env.VITE_API_URL}/favourites/${id}`, { withCredentials: true })
                     .then(res => {
                         if (res.data.deletedCount > 0) {
                             refetch();

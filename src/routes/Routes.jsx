@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
       {
         path: "biodatas/:id",
         element: <PrivateRoute><BiodataDetails /></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/biodatas/${params.id}`)
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/biodatas/${params.id}`)
       },
       {
         path: "checkout/:biodataId",

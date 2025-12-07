@@ -7,7 +7,7 @@ const ApprovedContactRequest = () => {
     const { data: requests = [], refetch } = useQuery({
         queryKey: ['contact-requests-admin'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/contact-requests', { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/contact-requests`, { withCredentials: true });
             return res.data;
         }
     });
@@ -23,7 +23,7 @@ const ApprovedContactRequest = () => {
             confirmButtonText: 'Yes, Approve!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/contact-requests/${request._id}`, {}, { withCredentials: true })
+                axios.patch(`${import.meta.env.VITE_API_URL}/contact-requests/${request._id}`, {}, { withCredentials: true })
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
                             refetch();

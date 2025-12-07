@@ -7,7 +7,7 @@ const ApprovedPremium = () => {
     const { data: requests = [], refetch } = useQuery({
         queryKey: ['premium-requests'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/premium-approval-requests', { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/premium-approval-requests`, { withCredentials: true });
             return res.data;
         }
     });
@@ -23,7 +23,7 @@ const ApprovedPremium = () => {
             confirmButtonText: 'Yes, Make Premium!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/premium-approval-requests/${biodata._id}`, {}, { withCredentials: true })
+                axios.patch(`${import.meta.env.VITE_API_URL}/premium-approval-requests/${biodata._id}`, {}, { withCredentials: true })
                     .then(res => {
                         if (res.data.modifiedCount > 0) {
                             refetch();

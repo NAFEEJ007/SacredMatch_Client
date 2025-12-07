@@ -26,7 +26,7 @@ const ViewBiodata = () => {
         queryKey: ['biodata', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/biodatas/email/${user?.email}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/biodatas/email/${user?.email}`);
             return res.data;
         }
     });

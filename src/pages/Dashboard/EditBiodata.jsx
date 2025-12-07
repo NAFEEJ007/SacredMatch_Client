@@ -13,7 +13,7 @@ const EditBiodata = () => {
         queryKey: ['biodata', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/biodatas/email/${user?.email}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/biodatas/email/${user?.email}`);
             return res.data;
         }
     });
@@ -37,7 +37,7 @@ const EditBiodata = () => {
             email: user?.email // Link biodata to user email
         }
 
-        axios.post('http://localhost:5000/biodatas', biodataInfo, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/biodatas`, biodataInfo, { withCredentials: true })
             .then(res => {
                 if (res.data.insertedId || res.data.modifiedCount > 0) {
                     Swal.fire({

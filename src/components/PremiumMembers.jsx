@@ -9,7 +9,7 @@ const PremiumMembers = () => {
     const { data: members = [], isLoading, isError, error } = useQuery({
         queryKey: ['premium-members'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/biodatas/premium');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/biodatas/premium`);
             return res.data;
         }
     });

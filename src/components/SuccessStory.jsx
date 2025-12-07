@@ -9,7 +9,7 @@ const SuccessStory = () => {
     const { data: stories = [] } = useQuery({
         queryKey: ['success-stories-home'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/success-stories');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/success-stories`);
             return res.data;
         }
     });

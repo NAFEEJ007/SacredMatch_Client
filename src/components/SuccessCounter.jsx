@@ -6,7 +6,7 @@ const SuccessCounter = () => {
     const { data: stats = {} } = useQuery({
         queryKey: ['public-stats'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/public-stats');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/public-stats`);
             return res.data;
         }
     });

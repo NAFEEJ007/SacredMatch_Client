@@ -15,7 +15,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user && !loading) {
-            axios.get(`http://localhost:5000/users/admin/${user.email}`, { withCredentials: true })
+            axios.get(`${import.meta.env.VITE_API_URL}/users/admin/${user.email}`, { withCredentials: true })
                 .then(res => {
                     if (res.data.admin) {
                         navigate('/dashboard/admin-home', { replace: true });
@@ -55,7 +55,7 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 // Save user to database if not exists
-                // axios.post('http://localhost:5000/users', userInfo)
+                // axios.post(`${import.meta.env.VITE_API_URL}/users`, userInfo)
                 // .then(res => {
                 //     console.log(res.data);
                 //     navigate(from, { replace: true });

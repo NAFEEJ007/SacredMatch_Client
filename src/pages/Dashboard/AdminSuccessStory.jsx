@@ -8,7 +8,7 @@ const AdminSuccessStory = () => {
     const { data: stories = [], refetch } = useQuery({
         queryKey: ['success-stories-admin'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/success-stories');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/success-stories`);
             return res.data;
         }
     });
@@ -48,7 +48,7 @@ const AdminSuccessStory = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/success-stories/${story._id}`, {
+                axios.delete(`${import.meta.env.VITE_API_URL}/success-stories/${story._id}`, {
                     withCredentials: true
                 })
                 .then(res => {

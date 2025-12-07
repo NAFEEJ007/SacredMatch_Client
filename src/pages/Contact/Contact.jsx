@@ -16,7 +16,7 @@ const Contact = () => {
         queryKey: ['isPremium', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/users/premium/${user?.email}`, { withCredentials: true });
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/premium/${user?.email}`, { withCredentials: true });
             return res.data.premium;
         }
     });

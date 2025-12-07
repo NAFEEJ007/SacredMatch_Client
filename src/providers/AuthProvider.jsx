@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
             // if user exists then issue a token
             if(currentUser){
                 const userInfo = { email: currentUser.email };
-                axios.post('http://localhost:5000/jwt', userInfo, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_API_URL}/jwt`, userInfo, { withCredentials: true })
                 .then(res => {
                     if(res.data.success){
                         setLoading(false);
@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
             }
             else{
                 // TODO: remove token (if stored in client side, but we use httpOnly cookie so maybe call logout endpoint)
-                axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+                axios.post(`${import.meta.env.VITE_API_URL}/logout`, {}, { withCredentials: true })
                 .then(() => {
                     setLoading(false);
                 })

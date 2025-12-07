@@ -13,7 +13,7 @@ const Register = () => {
 
     useEffect(() => {
         if (user && !loading) {
-            axios.get(`http://localhost:5000/users/admin/${user.email}`, { withCredentials: true })
+            axios.get(`${import.meta.env.VITE_API_URL}/users/admin/${user.email}`, { withCredentials: true })
                 .then(res => {
                     if (res.data.admin) {
                         navigate('/dashboard/admin-home', { replace: true });
@@ -37,7 +37,7 @@ const Register = () => {
                             role: 'normal', // Default role
                             premium: false
                         }
-                        axios.post('http://localhost:5000/users', userInfo)
+                        axios.post(`${import.meta.env.VITE_API_URL}/users`, userInfo)
                             .then(res => {
                                 if (res.data.insertedId || res.data.message === 'user already exists') {
                                     reset();
@@ -74,7 +74,7 @@ const Register = () => {
                     role: 'normal',
                     premium: false
                 }
-                axios.post('http://localhost:5000/users', userInfo)
+                axios.post(`${import.meta.env.VITE_API_URL}/users`, userInfo)
                     .then(res => {
                         console.log(res.data);
                         // navigate('/');

@@ -39,7 +39,7 @@ const Biodatas = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['biodatas', filters, currentPage],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/biodatas?page=${currentPage}&limit=${itemsPerPage}&type=${filters.type}&division=${filters.division}&ageMin=${filters.ageMin}&ageMax=${filters.ageMax}&biodataId=${filters.biodataId}&maritalStatus=${filters.maritalStatus}&race=${filters.race}&heightMin=${filters.heightMin}&heightMax=${filters.heightMax}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/biodatas?page=${currentPage}&limit=${itemsPerPage}&type=${filters.type}&division=${filters.division}&ageMin=${filters.ageMin}&ageMax=${filters.ageMax}&biodataId=${filters.biodataId}&maritalStatus=${filters.maritalStatus}&race=${filters.race}&heightMin=${filters.heightMin}&heightMax=${filters.heightMax}`);
             return res.data;
         }
     });
@@ -94,7 +94,7 @@ const Biodatas = () => {
             email: user.email
         }
         
-        axios.post('http://localhost:5000/favourites', favouriteData, { withCredentials: true })
+        axios.post(`${import.meta.env.VITE_API_URL}/favourites`, favouriteData, { withCredentials: true })
             .then(res => {
                 if(res.data.insertedId){
                     Swal.fire({
